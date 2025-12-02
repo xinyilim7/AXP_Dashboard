@@ -1,18 +1,14 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -27,8 +23,8 @@ code {
   --accent: #e53835db;
   --accent-light: #ff6b6b;
   --border-color: #e5e7eb;
-  --header-bg: #b71c1c;
-  --header-text: #ffffff;
+  --header-bg: #efc4c4ea;
+  --header-text: #433d3d;
   --shadow-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -68,11 +64,11 @@ body {
 .dashboard-header {
   background-color: var(--header-bg);
   color: var(--header-text);
-  padding: 1rem 1.5rem;
-  border-radius: 0rem 0rem 8rem 0.7rem;
+  padding: 0.5rem 1rem;
+  padding-bottom: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 3px rgba(65, 65, 65, 0.2);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,9 +77,20 @@ body {
   z-index: 10;
 }
 
-.dashboard-header h1{
-  font-size: 2.5rem;
+.dashboard-header h1 {
+  font-size: 1.2rem;
   font-weight: 800;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-title .company-logo {
+  height: 50px;
+  width: 90px;
 }
 
 .header-actions {
@@ -95,6 +102,7 @@ body {
 .header-actions .text-sm {
   display: flex;
   align-items: center;
+  font-weight: 600;
 }
 
 .table-header-controls {
@@ -291,6 +299,9 @@ body {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 12px var(--shadow-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .chart-title {
@@ -299,8 +310,13 @@ body {
   color: var(--text-main);
   border-left: 5px solid var(--accent);
   padding-left: 0.75rem;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .chart-title-container {
@@ -313,7 +329,6 @@ body {
   color: var(--accent);
 }
 
-/* Loading Spinner */
 .chart-loading {
   display: flex;
   flex-direction: column;
@@ -345,7 +360,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* Error state */
 .chart-error {
   padding: 1rem;
   background-color: #fee2e2;
@@ -354,44 +368,80 @@ body {
   border-radius: 10px;
 }
 
-/* This will be the new container for the two charts */
+.chart-action {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .chart-row {
   display: flex;
-  flex-direction: row; /* Makes children side-by-side */
+  flex-direction: row;
+  width: 100%;
 }
 
 .chart-one {
-  width: 50%;
+  width: 100%;
   flex-grow: 1;
-}
-
-.chart-two {
-  width: 50%;
-  flex-grow: 0;
-}
-
-.chart-third {
-  width: 50%;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-third > .chart-wrapper {
-  flex-grow: 1;
-  height: 100%;
+  padding-right: 0.4rem;
 }
 
 @media (max-width: 900px) {
   .chart-row {
-    flex-direction: column; /* Stack vertically on small screens */
+    flex-direction: column;
   }
 
-  .chart-one,
-  .chart-two,
-  .chart-third {
-    width: 100%; /* Full width on small screens */
+  .chart-one {
+    width: 100%;
   }
+}
+
+.status-summary-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.status-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.status-header.success {
+  color: rgb(21, 160, 113);
+}
+
+.status-header.failed {
+  color: #f44336;
+}
+
+.status-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.status-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-main);
+}
+
+.status-percentage {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 /* ==============================
@@ -448,10 +498,79 @@ body {
 }
 
 .trend-header-controls {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+}
+
+/* Floating Pop-up Alert */
+.chart-popup-alert {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%); /* Center it horizontally */
+  z-index: 50; /* Sit on top of the chart */
+
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 1px solid #ef4444;
+
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px; /* Pill shape */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slide-down-fade 0.5s ease-out forwards;
+}
+
+.alert-close-btn {
+  background: none;
+  border: none;
+  color: #991b1b;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.alert-close-btn:hover {
+  color: white;
+  opacity: 1;
+}
+
+/* Animation for entering */
+@keyframes slide-down-fade {
+  0% {
+    opacity: 0;
+    top: -20px;
+  }
+  100% {
+    opacity: 1;
+    top: 1rem;
+  }
+}
+
+/* Dark Mode */
+.dark .chart-popup-alert {
+  background-color: var(--accent);
+  color: white;
+  border-color: #7f1d1d;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.dark .alert-close-btn {
+  color:#7f1d1d;
+}
+
+.dark .alert-close-btn:hover {
+  color: white;
+  opacity: 1;
 }
 
 /* ==============================
@@ -500,7 +619,8 @@ body {
 .ticket-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  padding: 10px;
+  padding: 8px;
+  padding-top: 0px;
 }
 
 .ticket-table-wrapper .status-cell {
@@ -654,7 +774,7 @@ body {
 .secondary-filter-select {
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  padding: 1rem 2.5rem 1rem 0.75rem;
   border-radius: 9999px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-color);
@@ -684,6 +804,7 @@ body {
   width: 100%;
   overflow-x: auto;
   padding: 10px;
+  padding-top: 0px;
 }
 
 .merchant-table td.no-data-cell {

@@ -31,7 +31,7 @@ export function ChartWrapper({
   //3. Success State
   return (
     <div className="chart-wrapper">
-      <div className="flex justify-between items-center mb-4">
+      <div className="chart-header">
         <div className="chart-title-container">
           {icon}
           <h3 className="chart-title">{title}</h3>

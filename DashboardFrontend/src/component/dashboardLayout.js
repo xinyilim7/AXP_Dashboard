@@ -1,5 +1,4 @@
 import React from "react";
-import "./dashboardLayout.css";
 import {
   Sun,
   Moon,
@@ -9,14 +8,12 @@ import {
   BanknoteArrowUp,
   Star,
   BadgeDollarSign,
-  ChartNoAxesColumnIncreasing,
 } from "lucide-react";
 import { TrendChart } from "./charts/trendChart";
 import { TicketSizeTable } from "./tables/ticketSizeTable";
 import { MerchantTable } from "./tables/merchantsTable";
 import { PaymentMethodChart } from "./charts/paymentChart";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { TotalStatusPieChart } from "./charts/totalStatusPieChart";
 import {
   updateDateRange,
   updateTicketSort,
@@ -219,14 +216,6 @@ export function DashboardLayout() {
   );
   const displayData = data || {};
 
-  // X-Axis Logic
-  let xAxisKey;
-  if (filters.dateRange === "Daily") {
-    xAxisKey = "minute";
-  } else {
-    xAxisKey = "label";
-  }
-
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const handleScrollTo = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -252,15 +241,15 @@ export function DashboardLayout() {
     const intervalId = setInterval(fetchData, 5000);
     // 3. Cleanup
     return () => clearInterval(intervalId);
-  }, [dispatch, filters]); // Re-run when filters change
+  }, [dispatch, filters]);
 
   return (
     <div>
       {/* --- 1. HEADER (Company Name, Title, Update Status) --- */}
       <header className="dashboard-header">
-        <div>
-          <h1>{websiteTitle}</h1>
+        <div className="header-title">
           <img src={companyLogo} alt="Company Logo" className="company-logo" />
+          <h1>{websiteTitle}</h1>
         </div>
 
         {/* Timestamp, Theme, Naviagtor*/}
@@ -348,7 +337,6 @@ export function DashboardLayout() {
 
       {/* --- 2. MAIN CONTENT GRID --- */}
       <main className="dashboard-main">
-        <div className="dashboard-card">
           <div id="section-trends" className="chart-row">
             <div className="chart-one">
               <TrendChart
@@ -368,14 +356,6 @@ export function DashboardLayout() {
                     />
                   </div>
                 }
-              />
-            </div>
-            <div className="chart-two">
-              <TotalStatusPieChart
-                data={displayData.hourlyTrend}
-                loading={loading}
-                error={error}
-                icon={<ChartNoAxesColumnIncreasing size={35} color="#ff3b30" />}
               />
             </div>
           </div>
@@ -450,7 +430,6 @@ export function DashboardLayout() {
               />
             </div>
           </div>
-        </div>
       </main>
 
       {/* --- 3. FOOTER --- */}
